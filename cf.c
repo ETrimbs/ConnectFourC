@@ -36,46 +36,14 @@ void printMoves(char moves[42], int turns){
 }
 
 int charToCol(char character){
-  switch(character){
-    case('A'):
-      return 0; 
-    case('B'):
-      return 1;
-    case('C'):
-      return 2;
-    case('D'):
-      return 3;
-    case('E'):
-      return 4;
-    case('F'):
-      return 5;
-    case('G'):
-      return 6;
-    default:
-      if(character > 64)
-        return charToCol(character-32);
-  }
+  if(character > 64 && character < 72)
+    return character - 65;
+  if(character > 96 && character < 104)
+    return character-97;
   return -1;
 }
-
 char colToChar(int col){
-  switch(col){
-    case(0):
-      return 'A';
-    case(1):
-      return 'B'; 
-    case(2):
-      return 'C';
-    case(3):
-      return 'D';
-    case(4):
-      return 'E';
-    case(5):
-      return 'F';
-    case(6):
-      return 'G';
-  }
-  return 'Z';
+  return (col >= 0 && col < 7)? col+65 : 'Z';
 }
 
 //done
@@ -390,6 +358,8 @@ void play(){
     turns++;
   }
 
+  toString(board);
+
 
   if(turns >= 42){
       printf("Tie; nobody wins! :(\n");
@@ -399,9 +369,7 @@ void play(){
   } else{
       printf("Game over; computer wins!\n");
   }
-
-  toString(board);
-
+  
   printf("Move history: \n");
   printMoves(moves, turns);
 }
