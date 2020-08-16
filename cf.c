@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* Initialize a standard 6x7 board for connect four where '.' represents an unfilled space, 'X' represents a chip
+*  for the first player, and 'O' represents a chip for the second player.
+*/
 void initializeBoard(char board[6][7]){
   for(int i=0; i<6; i++){
     for(int j=0;j<7;j++){
@@ -9,6 +12,7 @@ void initializeBoard(char board[6][7]){
   }
 }
 
+// Print the board with numerical labels on the y-axis and alphabetical on the x-axis
 void toString(char board[6][7]){
 
   printf("\n   A B C D E F G");
@@ -21,7 +25,7 @@ void toString(char board[6][7]){
   }
 
   printf("\n");
-
+  
 }
 
 void printMoves(char moves[42], int turns){
@@ -47,6 +51,9 @@ int charToCol(char character){
       return 5;
     case('G'):
       return 6;
+    default:
+      if(character > 64)
+        return charToCol(character-32);
   }
   return -1;
 }
@@ -341,6 +348,10 @@ void play(){
   while(character != 'M' && character != 'C'){
     printf("Who is going first? Type 'M' for me and 'C' for the computer player.\n");
     scanf (" %c", &character);
+    if(character == 'm')
+      character = 'M';
+    else if(character == 'c')
+      character = 'C';
   }
 
   active = (character == 'M' ? 0:1);
